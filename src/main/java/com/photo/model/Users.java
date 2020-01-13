@@ -2,6 +2,7 @@ package com.photo.model;
 
 public class Users {
 	
+	private int id;
 	private String user;
 	private String password;
 	

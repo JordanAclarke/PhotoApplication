@@ -1,10 +1,27 @@
 package com.photo.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+
+@Entity
 public class Photo {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	
+	@Column(name = "photo_link")
 	private String photoLink;
+	@Column(name = "photo_name")
 	private String photoName;
+	@Column(name = "photo_description")
 	private String photoDescription;
+	
 	private String quotes;
 	
 	public Photo() {
