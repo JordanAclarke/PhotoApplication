@@ -51,9 +51,5 @@ public class Users {
 		this.password = password;
 	}
 	
-	
-	
-	
-	
 
 }
