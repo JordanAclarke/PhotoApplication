@@ -19,7 +19,7 @@ import com.photo.service.PhotoService;
 
 
 @RestController
-@RequestMapping("/photos")
+@RequestMapping("/api")
 public class Photocontroller {
 
 	@Autowired
@@ -32,9 +32,9 @@ public class Photocontroller {
 		return "Hello World";
 	}
 	@GetMapping("/getAllPhotos")
-	public ResponseEntity<List<Photo>> getAllPhotos() {
+	public List<Photo>getAllPhotos() {
 		List<Photo> allPhotos = pr.findAll();
-		return new ResponseEntity<List<Photo>>(HttpStatus.OK);
+		return allPhotos;
 	}
 	
 	@PostMapping("/addPhoto")
