@@ -11,8 +11,7 @@ class Photo extends Component {
         isLoading:true,
         photos: [],
         photoLink: '',
-        photoName: '',
-        photoDescription: '',
+        caption: '',
         quotes: '',
         toggleForm: false
      }
@@ -27,26 +26,42 @@ class Photo extends Component {
         })
      }
 
+     getQuotes = () => {
+         Axios.get('https://random-math-quote-api.herokuapp.com/').then(
+             response => {
+                 this.quotes = response.data.quote
+                console.log(response.data.quote);
+             }
+         ) 
+         
+     }
+
      togglePhotoAddForm = () => {
         this.setState({
             toggleForm: true
         })
     }
 
-    UpdateValue = (evt) => {
+    UpdatePhotoLinkValue = (evt) => {
         this.setState({
-            photoLink: evt.target.value
+            photoLink: evt.target.value,
         });
     }
 
-    changeHandler = (e) => {
-        this.setState({[e.target.value]: e.target.value})
+    UpdatePhotoCaptionValue = (evt) => {
+        this.setState({
+            caption: evt.target.value,
+        });
     }
+
+    // changeHandler = (e) => {
+    //     this.setState({[e.target.value]: e.target.value})
+    // }
     //  
      async componentDidMount() {
          const response = await fetch('/api/getAllPhotos');
          const body = await response.json();
-         this.setState({photos: body, isLoading: false});
+         this.setState({photos: body, isLoading: false, quotes: this.getQuotes()});
      }
     render() { 
         const {photos, isLoading, photoLink, photoName, photoDescription, quotes} = this.state;
@@ -56,13 +71,23 @@ class Photo extends Component {
             if(this.state.toggleForm) {
                 return <div>
                     <form onSubmit={this.postPhoto}>
+                        Photo URL:
                         <input type="text"
                         name="photoLink"
                         value = {this.state.photoLink}
-                        onChange = {this.UpdateValue}
+                        onChange = {this.UpdatePhotoLinkValue}
+                        />
+                        <br>
+                        </br>
+                        Photo Caption:
+                        <input type="text"
+                        name="caption"
+                        value = {this.state.caption}
+                        onChange = {this.UpdatePhotoCaptionValue}
                         />
                         <input type="submit" value="submit" />
                     </form>
+                   
                 </div>
             }
         
