@@ -20,7 +20,7 @@ class Photo extends Component {
      opts = this.state;
      postPhoto = () => {
         Axios.post('/api/addPhoto', this.state).then(response => {
-            console.log(response.data);
+            // console.log(response.data);
         }).catch(error => {
             console.log(error);
         })
@@ -29,7 +29,8 @@ class Photo extends Component {
      getQuotes = () => {
          Axios.get('https://random-math-quote-api.herokuapp.com/').then(
              response => {
-                 this.quotes = response.data.quote
+                console.log(response.data.quote)
+                this.setState({quotes: response.data.quote})
                 // console.log(response.data.quote);
              }
          ) 
@@ -58,21 +59,23 @@ class Photo extends Component {
     //     this.setState({[e.target.value]: e.target.value})
     // }
     //  
-    async createQuote() {
-        const url = "https://random-math-quote-api.herokuapp.com/";
-        const response = await fetch(url);
-        const data = await response.json()
-        console.log(data.quote)
-        this.setState({caption: data.quote})
-    }
+    // async createQuote() {
+    //     const url = "https://random-math-quote-api.herokuapp.com/";
+    //     const response = await fetch(url);
+    //     const data = await response.json()
+    //     console.log(data.quote)
+    //     this.setState({caption: data.quote})
+    // }
      async componentDidMount() {
          const response = await fetch('/api/getAllPhotos');
          const body = await response.json();
-         this.setState({photos: body, isLoading: false, caption: this.createQuote});
-         console.log(this.createQuote())
+         this.setState({photos: body, isLoading: false, quotes: this.getQuotes()});
+         console.log("Caption"  + this.state.caption)
+        //  console.log(this.createQuote())
      }
     render() { 
-        const {photos, isLoading, photoLink, photoName, photoDescription, quotes} = this.state;
+        const {photos, isLoading, quotes} = this.state;
+       
             if(isLoading) {
                 return (<div>Loading..</div>);
             }
@@ -90,7 +93,8 @@ class Photo extends Component {
                         Photo Caption:
                         <input type="text"
                         name="caption"
-                        value = {this.state.caption}
+                        placeholder = {this.state.quotes}
+                        value={this.state.caption}
                         onChange = {this.UpdatePhotoCaptionValue}
                         />
                         <input type="submit" value="submit" />
@@ -119,8 +123,8 @@ class Photo extends Component {
                     <Button variant="danger">Delete</Button>
                 </Card.Body>
                  <Card.Footer>
-                    {this.state.caption}
-                    {this.state.quotes}
+                     {this.state.caption} 
+                     {/* {this.state.quotes}  */}
                 </Card.Footer> 
             </Card>
             </CardGroup>

@@ -58,6 +58,14 @@ public class Photo {
 	public void setQuotes(String quotes) {
 		this.quotes = quotes;
 	}
+
+	public String getCaption() {
+		return caption;
+	}
+
+	public void setCaption(String caption) {
+		this.caption = caption;
+	}
 	
 	
 	
