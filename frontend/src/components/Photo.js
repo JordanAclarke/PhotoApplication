@@ -4,6 +4,7 @@ import CardGroup from 'react-bootstrap/CardGroup';
 import { Button } from 'react-bootstrap';
 import Axios from 'axios';
 
+
 class Photo extends Component {
     state = { 
         isLoading:true,
@@ -15,7 +16,7 @@ class Photo extends Component {
      }
 
     //  Test
-     opts = this.state;
+    
      postPhoto = () => {
         Axios.post('/api/addPhoto', this.state).then(response => {
             // console.log(response.data);
@@ -56,11 +57,10 @@ class Photo extends Component {
          const response = await fetch('/api/getAllPhotos');
          const body = await response.json();
          this.setState({photos: body, isLoading: false, quotes: this.getQuotes()});
-         console.log("Caption"  + this.state.caption)
-        //  console.log(this.createQuote())
+         //console.log(this.state.caption)
      }
     render() { 
-        const {photos, isLoading, quotes} = this.state;
+        const {photos, isLoading} = this.state;
        
             if(isLoading) {
                 return (<div>Loading..</div>);
@@ -86,37 +86,47 @@ class Photo extends Component {
                     </form>
                    
                 </div>
+
+
             }
         
         return (  
             <div>
-                <h2>PhotoGallery:</h2>
-            
+                <div className="header">
+                <h2 >Photo Gallery </h2> 
+                <h5 id="camera">📷</h5>
+                </div>
+                <hr></hr>
               
                 <p style={{fontFamily: "cursive"}}><span style={{fontFamily: "cursive", fontWeight: "bold"}}>Quote of the Day: </span> {this.state.quotes}</p>
-               
-                <button onClick={this.togglePhotoAddForm}>Post Photo</button>
+                <hr></hr>
+                <button onClick={this.togglePhotoAddForm}>Post a Photo</button>
+                <br></br>
+                <br></br>
+
+                <div class="row">
+
+                    <div class="column">
                 {
                     photos.map( photo => 
-                <CardGroup>
+                <CardGroup className="column ">
                 <Card style={{width:"auto", height:"auto", border: "1px solid black", maxWidth:"250px"}} >
                 <Card.Img variant="top" src={photo.photoLink}  style={{width:"auto", height:"auto", maxHeight: "250px", maxWidth:"250px"}}/>
                 <Card.Body>
-                <Card.Title>{photo.photoName}</Card.Title>
-                <Card.Text>
-                    {photo.photoDescription}
-                </Card.Text>
+                <Card.Title></Card.Title>
+                <Card.Text>{photo.caption} </Card.Text>
                 <div></div>
                     <Button variant="danger">Delete</Button>
                 </Card.Body>
-                 <Card.Footer>
-                     {this.state.caption} 
-                     {/* {this.state.quotes}  */}
+                 <Card.Footer> 
                 </Card.Footer> 
             </Card>
             </CardGroup>
                 )
                 }
+
+                    </div>
+                </div>
 
 
             </div>
