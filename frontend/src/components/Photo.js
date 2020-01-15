@@ -4,10 +4,8 @@ import CardGroup from 'react-bootstrap/CardGroup';
 import { Button } from 'react-bootstrap';
 import Axios from 'axios';
 
-// import "react-datepicker/dist/react-datepicker.css";
 class Photo extends Component {
     state = { 
-        date: new Date().toLocaleTimeString(),
         isLoading:true,
         photos: [],
         photoLink: '',
@@ -54,18 +52,6 @@ class Photo extends Component {
             caption: evt.target.value,
         });
     }
-
-    // changeHandler = (e) => {
-    //     this.setState({[e.target.value]: e.target.value})
-    // }
-    //  
-    // async createQuote() {
-    //     const url = "https://random-math-quote-api.herokuapp.com/";
-    //     const response = await fetch(url);
-    //     const data = await response.json()
-    //     console.log(data.quote)
-    //     this.setState({caption: data.quote})
-    // }
      async componentDidMount() {
          const response = await fetch('/api/getAllPhotos');
          const body = await response.json();
@@ -93,7 +79,6 @@ class Photo extends Component {
                         Photo Caption:
                         <input type="text"
                         name="caption"
-                        placeholder = {this.state.quotes}
                         value={this.state.caption}
                         onChange = {this.UpdatePhotoCaptionValue}
                         />
@@ -105,10 +90,12 @@ class Photo extends Component {
         
         return (  
             <div>
-                <h2>All Photos:</h2>
+                <h2>PhotoGallery:</h2>
+            
+              
+                <p style={{fontFamily: "cursive"}}><span style={{fontFamily: "cursive", fontWeight: "bold"}}>Quote of the Day: </span> {this.state.quotes}</p>
+               
                 <button onClick={this.togglePhotoAddForm}>Post Photo</button>
-                
-                
                 {
                     photos.map( photo => 
                 <CardGroup>
