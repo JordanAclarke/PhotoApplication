@@ -30,7 +30,7 @@ class Photo extends Component {
          Axios.get('https://random-math-quote-api.herokuapp.com/').then(
              response => {
                  this.quotes = response.data.quote
-                console.log(response.data.quote);
+                // console.log(response.data.quote);
              }
          ) 
          
@@ -58,10 +58,18 @@ class Photo extends Component {
     //     this.setState({[e.target.value]: e.target.value})
     // }
     //  
+    async createQuote() {
+        const url = "https://random-math-quote-api.herokuapp.com/";
+        const response = await fetch(url);
+        const data = await response.json()
+        console.log(data.quote)
+        this.setState({caption: data.quote})
+    }
      async componentDidMount() {
          const response = await fetch('/api/getAllPhotos');
          const body = await response.json();
-         this.setState({photos: body, isLoading: false, quotes: this.getQuotes()});
+         this.setState({photos: body, isLoading: false, caption: this.createQuote});
+         console.log(this.createQuote())
      }
     render() { 
         const {photos, isLoading, photoLink, photoName, photoDescription, quotes} = this.state;
@@ -111,7 +119,8 @@ class Photo extends Component {
                     <Button variant="danger">Delete</Button>
                 </Card.Body>
                  <Card.Footer>
-                    {this.state.startDate}
+                    {this.state.caption}
+                    {this.state.quotes}
                 </Card.Footer> 
             </Card>
             </CardGroup>
