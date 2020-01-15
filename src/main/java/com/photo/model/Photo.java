@@ -18,10 +18,9 @@ public class Photo {
 	
 	@Column(name = "photo_link")
 	private String photoLink;
-	@Column(name = "photo_name")
-	private String photoName;
-	@Column(name = "photo_description")
-	private String photoDescription;
+	
+	@Column(name = "caption")
+	private String caption;
 	
 	private String quotes;
 	
@@ -29,11 +28,10 @@ public class Photo {
 		
 	}
 
-	public Photo(String photoLink, String photoName, String photoDescription, String quotes) {
+	public Photo(String photoLink, String photoDescription, String quotes) {
 		super();
 		this.photoLink = photoLink;
-		this.photoName = photoName;
-		this.photoDescription = photoDescription;
+		this.caption = photoDescription;
 		this.quotes = quotes;
 	}
 
@@ -45,20 +43,12 @@ public class Photo {
 		this.photoLink = photoLink;
 	}
 
-	public String getPhotoName() {
-		return photoName;
-	}
-
-	public void setPhotoName(String photoName) {
-		this.photoName = photoName;
-	}
-
 	public String getPhotoDescription() {
-		return photoDescription;
+		return caption;
 	}
 
 	public void setPhotoDescription(String photoDescription) {
-		this.photoDescription = photoDescription;
+		this.caption = photoDescription;
 	}
 
 	public String getQuotes() {
