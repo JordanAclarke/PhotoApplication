@@ -57,10 +57,24 @@ button {
 
 }
 
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.addImage{
+  background-color: #bdb76b;
+  display:-ms-inline-flexbox;
+  margin-top: 70px ;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 100px;
+}
+
 #camera {
   width: 10px;
   height: 10px;
-  margin-top: 15px;
+  margin-top: 20px;
+  margin-left: 18px;
   animation-name: spin;
   animation-duration: 5000ms;
   animation-iteration-count: infinite;
