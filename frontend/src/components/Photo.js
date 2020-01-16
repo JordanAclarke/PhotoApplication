@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import Card from 'react-bootstrap/Card';
 import CardGroup from 'react-bootstrap/CardGroup';
-import { Button, FormControl, Dropdown, DropdownButton, InputGroup } from 'react-bootstrap';
+import { Button, FormControl, Dropdown, DropdownButton, InputGroup, Form } from 'react-bootstrap';
 import Axios from 'axios';
+
 
 
 
@@ -61,6 +62,19 @@ class Photo extends Component {
          this.setState({photos: body, isLoading: false, quotes: this.getQuotes()});
          //console.log(this.state.caption)
      }
+
+      PreviewCard({ linkData }) {
+        return (
+          <a className="preview" href={linkData.url}>
+            <img src={linkData.image} />
+            <div>
+              <h4>{linkData.title}</h4>
+              <p>{linkData.description}</p>
+            </div>
+          </a>
+        )
+      }
+
     render() { 
         const {photos, isLoading} = this.state;
        
@@ -69,7 +83,7 @@ class Photo extends Component {
             }
             if(this.state.toggleForm) {
                 return <div>
-                    <form onSubmit={this.postPhoto}>
+                    {/* <form onSubmit={this.postPhoto}>
                         Photo URL:
                         <input type="text"
                         name="photoLink"
@@ -85,46 +99,38 @@ class Photo extends Component {
                         onChange = {this.UpdatePhotoCaptionValue}
                         />
                         <input type="submit" value="submit" />
-                    </form>
-                   
+                    </form> */}
+                   <Card className="addImage" style={{width:"auto", height:"auto", border: "0.55px solid black", maxWidth:"600px"}}>
+                    <Form onSubmit={this.postPhoto}>
+                    <Form.Group>
+                        <Form.Label>Photo URL</Form.Label>
+                        <Form.Control type="text" placeholder="Paste your photo's URL here"
+                         value = {this.state.photoLink}
+                         onChange = {this.UpdatePhotoLinkValue}
+                         />
+                        <Form.Text>
+                        (adding to photo gallery)
+                        </Form.Text>
+                    </Form.Group>
 
-
-                    <InputGroup className="mb-3">
-                      <DropdownButton
-                        as={InputGroup.Prepend}
-                        variant="outline-secondary"
-                        title="Dropdown"
-                        id="input-group-dropdown-1"
-                      >
-                        <Dropdown.Item href="#">Action</Dropdown.Item>
-                        <Dropdown.Item href="#">Another action</Dropdown.Item>
-                        <Dropdown.Item href="#">Something else here</Dropdown.Item>
-                        <Dropdown.Divider />
-                        <Dropdown.Item href="#">Separated link</Dropdown.Item>
-                      </DropdownButton>
-                      <FormControl aria-describedby="basic-addon1" />
-                    </InputGroup>
-                  
-                    <InputGroup>
-                      <FormControl
-                        placeholder="Recipient's username"
-                        aria-label="Recipient's username"
-                        aria-describedby="basic-addon2"
-                      />
-                  
-                      <DropdownButton
-                        as={InputGroup.Append}
-                        variant="outline-secondary"
-                        title="Dropdown"
-                        id="input-group-dropdown-2"
-                      >
-                        <Dropdown.Item href="#">Action</Dropdown.Item>
-                        <Dropdown.Item href="#">Another action</Dropdown.Item>
-                        <Dropdown.Item href="#">Something else here</Dropdown.Item>
-                        <Dropdown.Divider />
-                        <Dropdown.Item href="#">Separated link</Dropdown.Item>
-                      </DropdownButton>
-                    </InputGroup>
+                    <Form.Group>
+                        <Form.Label>Caption for Photo</Form.Label>
+                        <Form.Control type="text" name="caption" placeholder="Add a caption for your photo" 
+                        value={this.state.caption}
+                        onChange = {this.UpdatePhotoCaptionValue}
+                        />
+                    </Form.Group>
+                    <Button variant="primary" type="submit" value="submit">
+                        Submit to Gallery
+                    </Button>
+                    <a href="/">
+                    <Button variant="default" onClick={this.state}>
+                        Back
+                    </Button>
+                    </a>
+                    
+                    </Form>
+                    </Card>
 
                 </div>
 
@@ -157,14 +163,14 @@ class Photo extends Component {
                     <div class="column">
                 {
                     photos.map( photo => 
-                <CardGroup className="column ">
-                <Card style={{width:"auto", height:"auto", border: "1px solid black", maxWidth:"250px"}} >
+                <CardGroup className="column">
+                <Card className="card" style={{width:"auto", height:"auto", border: "0.55px solid black", maxWidth:"250px"}} >
                 <Card.Img variant="top" src={photo.photoLink}  style={{width:"auto", height:"auto", maxHeight: "250px", maxWidth:"250px"}}/>
                 <Card.Body>
                 <Card.Title></Card.Title>
                 <Card.Text>{photo.caption} </Card.Text>
                 <div></div>
-                    <Button variant="danger">Delete</Button>
+                <Button variant="danger">Delete</Button>
                 </Card.Body>
                  <Card.Footer> 
                 </Card.Footer> 
