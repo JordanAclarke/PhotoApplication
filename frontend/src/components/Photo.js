@@ -15,10 +15,22 @@ class Photo extends Component {
         photoLink: '',
         caption: '',
         quotes: '',
+        id:'',
         toggleForm: false
      }
 
     //  Test
+     deletePhoto = (id) => {
+         Axios.delete('api/getPhoto/' + id).then((response) => {
+             this.componentDidMount();
+         }).catch(err=> {
+            console.log(err);
+         })
+     }
+
+
+
+    // 
     
      postPhoto = () => {
         Axios.post('/api/addPhoto', this.state).then(response => {
@@ -61,6 +73,8 @@ class Photo extends Component {
          const body = await response.json();
          this.setState({photos: body, isLoading: false, quotes: this.getQuotes()});
          //console.log(this.state.caption)
+         console.log(this.state.photos);
+         console.log("ID IS: " + this.id)
      }
 
       PreviewCard({ linkData }) {
@@ -170,9 +184,10 @@ class Photo extends Component {
                 <Card.Title></Card.Title>
                 <Card.Text>{photo.caption} </Card.Text>
                 <div></div>
-                <Button variant="danger">Delete</Button>
+                <Button onClick={() => this.deletePhoto(photo.id)} variant="danger">Delete</Button>
                 </Card.Body>
                  <Card.Footer> 
+                 
                 </Card.Footer> 
             </Card>
             </CardGroup>
