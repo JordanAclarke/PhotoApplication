@@ -24,15 +24,18 @@ public class Photo {
 	
 	private String quotes;
 	
+	private int hidden;
+	
 	public Photo() {
 		
 	}
 
-	public Photo(String photoLink, String photoDescription, String quotes) {
+	public Photo(String photoLink, String caption, String quotes) {
 		super();
 		this.photoLink = photoLink;
-		this.caption = photoDescription;
+		this.caption = caption;
 		this.quotes = quotes;
+		this.hidden = this.id;
 	}
 
 	public String getPhotoLink() {
@@ -66,6 +69,11 @@ public class Photo {
 	public void setCaption(String caption) {
 		this.caption = caption;
 	}
+
+	public int getId() {
+		return id;
+	}
+
 	
 	
 	
