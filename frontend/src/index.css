@@ -70,6 +70,16 @@ button {
   padding: 0 100px;
 }
 
+.login{
+  width:"auto"; 
+  height:"auto"; 
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 150px;
+  max-width: 300px;
+  padding: 0 20px;
+}
+
 #camera {
   width: 10px;
   height: 10px;
