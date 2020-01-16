@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom';
 import Photo from './components/Photo';
 import * as serviceWorker from './serviceWorker';
 import '../src/index.css';
+import Login from './components/Login';
 
 ReactDOM.render(<Photo />, document.getElementById('root'));
 
